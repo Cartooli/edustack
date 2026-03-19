@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Click Counter</title>
+    <style>
+      /* === PAGE SETUP === */
+      /* This sets the overall look of the page */
+      body {
+        margin: 0;
+        padding: 20px;
+        background-color: #edf2f7;
+        font-family: Georgia, serif;
+        display: flex;                /* Flexbox centers our card */
+        justify-content: center;      /* Center horizontally */
+        align-items: center;          /* Center vertically */
+        min-height: 100vh;            /* Full screen height */
+      }
+
+      /* === CARD CONTAINER === */
+      /* The white card that holds everything */
+      .card {
+        background-color: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        min-width: 300px;
+        animation: fadeIn 0.6s ease;
+      }
+
+      /* === TITLE === */
+      h1 {
+        color: #2b6cb0;
+        margin-top: 0;
+        font-size: 28px;
+      }
+
+      /* === THE BIG NUMBER === */
+      /* This displays the current count */
+      .count-display {
+        font-size: 80px;
+        font-weight: bold;
+        margin: 20px 0;
+        transition: color 0.3s ease, transform 0.2s ease;
+        /* The color changes based on the count value (JavaScript does this) */
+      }
+
+      /* === HIGH SCORE === */
+      .high-score {
+        font-size: 16px;
+        color: #718096;
+        margin-bottom: 20px;
+      }
+
+      .high-score span {
+        font-weight: bold;
+        color: #2b6cb0;
+      }
+
+      /* === BUTTONS === */
+      /* Both buttons share these base styles */
+      .btn {
+        padding: 14px 32px;
+        font-size: 18px;
+        font-family: Georgia, serif;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 6px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+      }
+
+      /* The "Add One" button is blue */
+      .btn-add {
+        background-color: #3182ce;
+        color: white;
+      }
+
+      /* Hover state — button lifts up slightly */
+      .btn-add:hover {
+        background-color: #2b6cb0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(49, 130, 206, 0.4);
+      }
+
+      /* Active state — button presses down when clicked */
+      .btn-add:active {
+        transform: translateY(1px);
+        box-shadow: 0 1px 4px rgba(49, 130, 206, 0.3);
+      }
+
+      /* The "Reset" button is gray */
+      .btn-reset {
+        background-color: #e2e8f0;
+        color: #4a5568;
+      }
+
+      .btn-reset:hover {
+        background-color: #cbd5e0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-reset:active {
+        transform: translateY(1px);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* === ANIMATIONS === */
+      /* The card fades in when the page loads */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* A quick "pop" animation for the number when it changes */
+      @keyframes pop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+      }
+
+      .pop {
+        animation: pop 0.2s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The card that holds our counter -->
+    <div class="card">
+      <h1>Click Counter</h1>
+
+      <!-- The big number display -->
+      <!-- JavaScript will change this number and its color -->
+      <div class="count-display" id="count-display">0</div>
+
+      <!-- High score tracker -->
+      <div class="high-score">
+        Best: <span id="high-score">0</span>
+      </div>
+
+      <!-- Buttons -->
+      <!-- onclick tells JavaScript what to do when the button is clicked -->
+      <button class="btn btn-add" id="add-btn">Add One</button>
+      <button class="btn btn-reset" id="reset-btn">Reset</button>
+    </div>
+
+    <script>
+      // ==============================================
+      // CLICK COUNTER — JavaScript
+      // ==============================================
+      // This script makes the counter work.
+      // It tracks the count, updates the display,
+      // changes colors, and remembers the high score.
+
+      // --- VARIABLES ---
+      // Variables store data that can change.
+      // "let" means the value can be updated later.
+      let count = 0;       // The current count starts at 0
+      let highScore = 0;   // The best score starts at 0
+
+      // --- FIND THE ELEMENTS ---
+      // We need to tell JavaScript WHERE to put things on the page.
+      // getElementById finds an element by its id attribute.
+      let countDisplay = document.getElementById("count-display");
+      let highScoreDisplay = document.getElementById("high-score");
+      let addButton = document.getElementById("add-btn");
+      let resetButton = document.getElementById("reset-btn");
+
+      // --- FUNCTIONS ---
+      // A function is a set of instructions we can run whenever we want.
+
+      // This function picks a color based on the count value
+      function getColor(number) {
+        // Blue for 0-4 (just getting started)
+        if (number < 5) {
+          return "#3182ce";
+        }
+        // Green for 5-9 (nice progress!)
+        if (number < 10) {
+          return "#38a169";
+        }
+        // Orange for 10-19 (going strong!)
+        if (number < 20) {
+          return "#dd6b20";
+        }
+        // Red for 20+ (on fire!)
+        return "#e53e3e";
+      }
+
+      // This function updates what the user sees on screen
+      function updateDisplay() {
+        // Show the current count
+        countDisplay.textContent = count;
+
+        // Change the color based on the count
+        countDisplay.style.color = getColor(count);
+
+        // Add a little "pop" animation
+        // First remove the class (in case it's already there)
+        countDisplay.classList.remove("pop");
+        // Force the browser to notice the removal before re-adding
+        // This trick restarts the animation
+        void countDisplay.offsetWidth;
+        // Now add it back to play the animation
+        countDisplay.classList.add("pop");
+
+        // Check if we beat the high score
+        if (count > highScore) {
+          highScore = count;
+          highScoreDisplay.textContent = highScore;
+        }
+      }
+
+      // --- EVENT LISTENERS ---
+      // These tell JavaScript to DO something when a button is clicked.
+      // "click" is the event. The function runs when it happens.
+
+      // When the "Add One" button is clicked:
+      addButton.addEventListener("click", function() {
+        count = count + 1;   // Add 1 to the count
+        updateDisplay();     // Update what the user sees
+      });
+
+      // When the "Reset" button is clicked:
+      resetButton.addEventListener("click", function() {
+        count = 0;           // Set count back to 0
+        updateDisplay();     // Update what the user sees
+      });
+
+      // --- START ---
+      // Show the initial state when the page loads
+      updateDisplay();
+    </script>
+  </body>
+</html>

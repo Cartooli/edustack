@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Dashboard</title>
+    <style>
+      /* === PAGE SETUP === */
+      body {
+        margin: 0;
+        padding: 20px;
+        background-color: #edf2f7;
+        font-family: Georgia, serif;
+        color: #2d3748;
+      }
+
+      /* === MAIN CONTAINER === */
+      .dashboard {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      /* === HEADER === */
+      .dashboard-header {
+        text-align: center;
+        padding: 30px;
+        background: linear-gradient(135deg, #2b6cb0, #4299e1);
+        color: white;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        animation: fadeIn 0.6s ease;
+      }
+
+      .dashboard-header h1 {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      .dashboard-header p {
+        margin: 8px 0 0;
+        opacity: 0.9;
+        font-size: 16px;
+      }
+
+      /* === STAT CARDS === */
+      /* The row of stat cards at the top */
+      .stats-row {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+
+      .stat-card {
+        flex: 1;
+        min-width: 150px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        animation: slideUp 0.5s ease both;
+      }
+
+      .stat-card:nth-child(1) { animation-delay: 0.05s; }
+      .stat-card:nth-child(2) { animation-delay: 0.1s; }
+      .stat-card:nth-child(3) { animation-delay: 0.15s; }
+      .stat-card:nth-child(4) { animation-delay: 0.2s; }
+
+      .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      .stat-label {
+        font-size: 14px;
+        color: #a0aec0;
+        margin-bottom: 6px;
+      }
+
+      .stat-value {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2b6cb0;
+      }
+
+      .stat-detail {
+        font-size: 12px;
+        color: #a0aec0;
+        margin-top: 4px;
+      }
+
+      /* === PROGRESS SECTION === */
+      .section-card {
+        background-color: white;
+        padding: 24px 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        margin-bottom: 16px;
+        animation: slideUp 0.5s ease both;
+        animation-delay: 0.25s;
+      }
+
+      .section-card h2 {
+        color: #2b6cb0;
+        margin-top: 0;
+        border-bottom: 2px solid #ebf8ff;
+        padding-bottom: 8px;
+        font-size: 20px;
+      }
+
+      /* Progress bar container */
+      .progress-item {
+        margin-bottom: 18px;
+      }
+
+      .progress-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+
+      .progress-label {
+        color: #4a5568;
+        font-weight: bold;
+      }
+
+      .progress-percent {
+        color: #a0aec0;
+      }
+
+      .progress-track {
+        background-color: #e2e8f0;
+        border-radius: 8px;
+        height: 12px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 8px;
+        transition: width 1s ease;
+      }
+
+      /* === FOOTER === */
+      .dashboard-footer {
+        text-align: center;
+        padding: 16px;
+        color: #a0aec0;
+        font-size: 14px;
+      }
+
+      /* === ANIMATIONS === */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-15px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Header -->
+      <div class="dashboard-header">
+        <h1>My Dashboard</h1>
+        <p>Track your progress and stats</p>
+      </div>
+
+      <!-- Stat Cards -->
+      <!-- CUSTOMIZE: Change the labels, values, and details below -->
+      <div class="stats-row" id="stats-row">
+        <!-- JavaScript fills these in -->
+      </div>
+
+      <!-- Progress Bars -->
+      <!-- CUSTOMIZE: Change the labels, percentages, and colors below -->
+      <div class="section-card">
+        <h2>Progress</h2>
+        <div id="progress-area">
+          <!-- JavaScript fills these in -->
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="dashboard-footer">
+        <p>Built with HTML, CSS, and JavaScript</p>
+      </div>
+    </div>
+
+    <script>
+      // ==============================================
+      // DASHBOARD TEMPLATE
+      // ==============================================
+      // CUSTOMIZE: Change the data arrays below to
+      // make this dashboard show YOUR information!
+
+      // --- STAT CARDS DATA ---
+      // Each stat has a label, value, and detail line.
+      // Change these to anything you want to track!
+      let stats = [
+        { label: "Skills Learned",  value: "7",   detail: "out of 12" },
+        { label: "Projects Built",  value: "3",   detail: "and counting" },
+        { label: "Lines of Code",   value: "425", detail: "total written" },
+        { label: "Days Coding",     value: "18",  detail: "keep it up!" }
+      ];
+
+      // --- PROGRESS BARS DATA ---
+      // Each item has a label, percent (0-100), and color.
+      // Change these to track whatever you like!
+      let progressItems = [
+        { label: "HTML",       percent: 85, color: "#3182ce" },
+        { label: "CSS",        percent: 70, color: "#38a169" },
+        { label: "JavaScript", percent: 45, color: "#dd6b20" }
+      ];
+
+      // --- BUILD THE STAT CARDS ---
+      let statsRow = document.getElementById("stats-row");
+
+      for (let i = 0; i < stats.length; i++) {
+        // Create a stat card
+        let card = document.createElement("div");
+        card.className = "stat-card";
+
+        // Create the label
+        let label = document.createElement("div");
+        label.className = "stat-label";
+        label.textContent = stats[i].label;
+
+        // Create the value
+        let value = document.createElement("div");
+        value.className = "stat-value";
+        value.textContent = stats[i].value;
+
+        // Create the detail
+        let detail = document.createElement("div");
+        detail.className = "stat-detail";
+        detail.textContent = stats[i].detail;
+
+        // Put them together
+        card.appendChild(label);
+        card.appendChild(value);
+        card.appendChild(detail);
+        statsRow.appendChild(card);
+      }
+
+      // --- BUILD THE PROGRESS BARS ---
+      let progressArea = document.getElementById("progress-area");
+
+      for (let i = 0; i < progressItems.length; i++) {
+        let item = progressItems[i];
+
+        // Create the progress item container
+        let progressItem = document.createElement("div");
+        progressItem.className = "progress-item";
+
+        // Create the header (label + percent)
+        let header = document.createElement("div");
+        header.className = "progress-header";
+
+        let labelSpan = document.createElement("span");
+        labelSpan.className = "progress-label";
+        labelSpan.textContent = item.label;
+
+        let percentSpan = document.createElement("span");
+        percentSpan.className = "progress-percent";
+        percentSpan.textContent = item.percent + "%";
+
+        header.appendChild(labelSpan);
+        header.appendChild(percentSpan);
+
+        // Create the track and fill bar
+        let track = document.createElement("div");
+        track.className = "progress-track";
+
+        let fill = document.createElement("div");
+        fill.className = "progress-fill";
+        fill.style.backgroundColor = item.color;
+        // Start at 0 width, then animate to the real width
+        fill.style.width = "0%";
+
+        track.appendChild(fill);
+
+        // Put them together
+        progressItem.appendChild(header);
+        progressItem.appendChild(track);
+        progressArea.appendChild(progressItem);
+
+        // Animate the fill bar after a short delay
+        // This creates a nice loading effect when the page opens
+        setTimeout(function() {
+          fill.style.width = item.percent + "%";
+        }, 300 + (i * 200));
+      }
+    </script>
+  </body>
+</html>

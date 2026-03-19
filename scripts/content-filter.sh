@@ -83,11 +83,18 @@ check_blocklist() {
         return 0
     fi
     
-    while IFS='|' read -r category pattern || [ -n "$pattern" ]; do
+    while IFS= read -r line || [ -n "$line" ]; do
         # Skip comments and empty lines
-        [[ "$pattern" =~ ^#.*$ ]] && continue
-        [[ -z "$pattern" ]] && continue
-        
+        [[ "$line" =~ ^[[:space:]]*# ]] && continue
+        [[ -z "$line" ]] && continue
+
+        # Split on pipe delimiter
+        category="${line%%|*}"
+        pattern="${line#*|}"
+
+        # Skip lines without a pipe (no pattern)
+        [[ "$category" == "$line" ]] && continue
+
         # Trim whitespace
         category=$(echo "$category" | tr -d '[:space:]')
         pattern=$(echo "$pattern" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')

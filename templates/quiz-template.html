@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Quiz App</title>
+    <style>
+      /* === PAGE SETUP === */
+      body {
+        margin: 0;
+        padding: 20px;
+        background-color: #edf2f7;
+        font-family: Georgia, serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* === QUIZ CARD === */
+      .quiz-card {
+        background-color: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        max-width: 550px;
+        width: 100%;
+        animation: fadeIn 0.5s ease;
+      }
+
+      h1 {
+        color: #2b6cb0;
+        margin-top: 0;
+        text-align: center;
+      }
+
+      /* === PROGRESS BAR === */
+      .progress-bar {
+        background-color: #e2e8f0;
+        border-radius: 10px;
+        height: 10px;
+        margin-bottom: 24px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        background: linear-gradient(90deg, #3182ce, #4299e1);
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.4s ease;
+      }
+
+      /* === QUESTION === */
+      .question-number {
+        font-size: 14px;
+        color: #a0aec0;
+        margin-bottom: 8px;
+      }
+
+      .question-text {
+        font-size: 20px;
+        color: #2d3748;
+        margin-bottom: 24px;
+        line-height: 1.5;
+      }
+
+      /* === ANSWER BUTTONS === */
+      .answers {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .answer-btn {
+        padding: 14px 20px;
+        font-size: 16px;
+        font-family: Georgia, serif;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        background-color: white;
+        color: #2d3748;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.2s ease;
+      }
+
+      .answer-btn:hover {
+        border-color: #3182ce;
+        background-color: #ebf8ff;
+        transform: translateX(4px);
+      }
+
+      /* Correct answer highlight */
+      .answer-btn.correct {
+        border-color: #38a169;
+        background-color: #f0fff4;
+        color: #22543d;
+      }
+
+      /* Wrong answer highlight */
+      .answer-btn.wrong {
+        border-color: #e53e3e;
+        background-color: #fff5f5;
+        color: #742a2a;
+      }
+
+      /* === RESULTS SCREEN === */
+      .results {
+        text-align: center;
+      }
+
+      .score-display {
+        font-size: 64px;
+        font-weight: bold;
+        color: #2b6cb0;
+        margin: 20px 0;
+      }
+
+      .score-label {
+        font-size: 18px;
+        color: #4a5568;
+        margin-bottom: 8px;
+      }
+
+      .score-message {
+        font-size: 16px;
+        color: #718096;
+        margin-bottom: 24px;
+      }
+
+      .restart-btn {
+        padding: 14px 32px;
+        font-size: 18px;
+        font-family: Georgia, serif;
+        background-color: #3182ce;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.15s ease;
+      }
+
+      .restart-btn:hover {
+        background-color: #2b6cb0;
+        transform: translateY(-2px);
+      }
+
+      /* === HIDDEN CLASS === */
+      .hidden {
+        display: none;
+      }
+
+      /* === ANIMATION === */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-15px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-card">
+      <h1>Web Dev Quiz</h1>
+
+      <!-- Progress bar -->
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+
+      <!-- Question area (shown during the quiz) -->
+      <div id="quiz-area">
+        <div class="question-number" id="question-number">Question 1 of 3</div>
+        <div class="question-text" id="question-text">Loading...</div>
+        <div class="answers" id="answers">
+          <!-- Answer buttons are created by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Results area (shown when quiz is complete) -->
+      <div id="results-area" class="results hidden">
+        <div class="score-label">Your Score</div>
+        <div class="score-display" id="score-display">0/3</div>
+        <div class="score-message" id="score-message">Keep practicing!</div>
+        <button class="restart-btn" id="restart-btn">Try Again</button>
+      </div>
+    </div>
+
+    <script>
+      // ==============================================
+      // QUIZ APP TEMPLATE
+      // ==============================================
+      // CUSTOMIZE THIS: Change the questions array below
+      // to make this quiz about anything you want!
+
+      // --- YOUR QUESTIONS GO HERE ---
+      // Each question has:
+      //   question: the text of the question
+      //   answers: an array of possible answers
+      //   correct: the index of the correct answer (starts at 0)
+      let questions = [
+        {
+          question: "What does HTML stand for?",
+          answers: [
+            "Hyper Text Markup Language",
+            "High Tech Modern Language",
+            "Home Tool Markup Language",
+            "Hyperlinks and Text Markup Language"
+          ],
+          correct: 0  // First answer is correct (index 0)
+        },
+        {
+          question: "Which CSS property changes the text color?",
+          answers: [
+            "text-style",
+            "font-color",
+            "color",
+            "text-color"
+          ],
+          correct: 2  // Third answer is correct (index 2)
+        },
+        {
+          question: "Where should you put a script tag in your HTML?",
+          answers: [
+            "Inside the title tag",
+            "Before the DOCTYPE",
+            "In the CSS section",
+            "At the bottom of the body, before the closing body tag"
+          ],
+          correct: 3  // Fourth answer is correct (index 3)
+        }
+        // ADD MORE QUESTIONS HERE!
+        // Copy the pattern above and change the text.
+      ];
+
+      // --- VARIABLES ---
+      let currentQuestion = 0;  // Which question we're on (starts at 0)
+      let score = 0;            // How many correct answers
+      let answered = false;     // Has the current question been answered?
+
+      // --- FIND THE ELEMENTS ---
+      let quizArea = document.getElementById("quiz-area");
+      let resultsArea = document.getElementById("results-area");
+      let questionNumber = document.getElementById("question-number");
+      let questionText = document.getElementById("question-text");
+      let answersDiv = document.getElementById("answers");
+      let progressFill = document.getElementById("progress-fill");
+      let scoreDisplay = document.getElementById("score-display");
+      let scoreMessage = document.getElementById("score-message");
+      let restartBtn = document.getElementById("restart-btn");
+
+      // --- SHOW A QUESTION ---
+      function showQuestion() {
+        answered = false;
+        let q = questions[currentQuestion];
+
+        // Update the question number and text
+        questionNumber.textContent = "Question " + (currentQuestion + 1) + " of " + questions.length;
+        questionText.textContent = q.question;
+
+        // Update progress bar
+        let progress = (currentQuestion / questions.length) * 100;
+        progressFill.style.width = progress + "%";
+
+        // Clear old answer buttons
+        answersDiv.textContent = "";
+
+        // Create new answer buttons
+        for (let i = 0; i < q.answers.length; i++) {
+          let btn = document.createElement("button");
+          btn.className = "answer-btn";
+          btn.textContent = q.answers[i];
+
+          // When this button is clicked, check the answer
+          btn.addEventListener("click", function() {
+            checkAnswer(i, btn);
+          });
+
+          answersDiv.appendChild(btn);
+        }
+      }
+
+      // --- CHECK AN ANSWER ---
+      function checkAnswer(selected, clickedBtn) {
+        // Don't allow multiple answers
+        if (answered) {
+          return;
+        }
+        answered = true;
+
+        let q = questions[currentQuestion];
+
+        // Get all answer buttons
+        let allBtns = answersDiv.querySelectorAll(".answer-btn");
+
+        if (selected === q.correct) {
+          // Correct! Highlight green
+          clickedBtn.className = "answer-btn correct";
+          score = score + 1;
+        } else {
+          // Wrong! Highlight red and show the correct answer in green
+          clickedBtn.className = "answer-btn wrong";
+          allBtns[q.correct].className = "answer-btn correct";
+        }
+
+        // Wait a moment, then move to the next question
+        setTimeout(function() {
+          currentQuestion = currentQuestion + 1;
+
+          if (currentQuestion < questions.length) {
+            showQuestion();
+          } else {
+            showResults();
+          }
+        }, 1200);
+      }
+
+      // --- SHOW RESULTS ---
+      function showResults() {
+        // Hide the quiz, show the results
+        quizArea.className = "hidden";
+        resultsArea.className = "results";
+
+        // Update progress bar to 100%
+        progressFill.style.width = "100%";
+
+        // Show the score
+        scoreDisplay.textContent = score + "/" + questions.length;
+
+        // Pick a message based on the score
+        let percent = (score / questions.length) * 100;
+        if (percent === 100) {
+          scoreMessage.textContent = "Perfect score! Amazing work!";
+        } else if (percent >= 70) {
+          scoreMessage.textContent = "Great job! You really know your stuff!";
+        } else if (percent >= 40) {
+          scoreMessage.textContent = "Good effort! Review and try again!";
+        } else {
+          scoreMessage.textContent = "Keep practicing! You'll get it!";
+        }
+      }
+
+      // --- RESTART THE QUIZ ---
+      restartBtn.addEventListener("click", function() {
+        currentQuestion = 0;
+        score = 0;
+        quizArea.className = "";
+        resultsArea.className = "results hidden";
+        showQuestion();
+      });
+
+      // --- START THE QUIZ ---
+      showQuestion();
+    </script>
+  </body>
+</html>

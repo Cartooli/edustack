@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EduBot Chat Demo</title>
+    <style>
+      /* === PAGE SETUP === */
+      body {
+        margin: 0;
+        padding: 20px;
+        background-color: #edf2f7;
+        font-family: Georgia, serif;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      /* === CHAT CONTAINER === */
+      .chat-container {
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh;
+        animation: fadeIn 0.5s ease;
+      }
+
+      /* === HEADER === */
+      .chat-header {
+        background: linear-gradient(135deg, #2b6cb0, #4299e1);
+        color: white;
+        padding: 20px 24px;
+        border-radius: 16px 16px 0 0;
+        text-align: center;
+      }
+
+      .chat-header h1 {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      .chat-header p {
+        margin: 6px 0 0;
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      /* === MESSAGE AREA === */
+      .messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        min-height: 300px;
+        max-height: 400px;
+      }
+
+      /* === MESSAGE BUBBLES === */
+      .message {
+        margin-bottom: 16px;
+        display: flex;
+        animation: slideUp 0.3s ease;
+      }
+
+      /* Student messages align to the right */
+      .message.student {
+        justify-content: flex-end;
+      }
+
+      /* Bot messages align to the left */
+      .message.bot {
+        justify-content: flex-start;
+      }
+
+      .bubble {
+        max-width: 80%;
+        padding: 12px 16px;
+        border-radius: 12px;
+        line-height: 1.6;
+        font-size: 15px;
+      }
+
+      /* Student bubbles are blue */
+      .message.student .bubble {
+        background-color: #3182ce;
+        color: white;
+        border-bottom-right-radius: 4px;
+      }
+
+      /* Bot bubbles are green */
+      .message.bot .bubble {
+        background-color: #f0fff4;
+        color: #2d3748;
+        border: 1px solid #c6f6d5;
+        border-bottom-left-radius: 4px;
+      }
+
+      /* Code styling inside messages */
+      .bubble code {
+        background-color: rgba(0, 0, 0, 0.1);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 14px;
+      }
+
+      .message.bot .bubble code {
+        background-color: #e6fffa;
+        color: #234e52;
+      }
+
+      /* === SUGGESTED PROMPTS === */
+      .suggestions {
+        padding: 12px 20px;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .suggestions label {
+        font-size: 12px;
+        color: #a0aec0;
+        width: 100%;
+        margin-bottom: 2px;
+      }
+
+      .suggestion-btn {
+        background-color: #ebf8ff;
+        color: #2b6cb0;
+        border: 1px solid #bee3f8;
+        border-radius: 20px;
+        padding: 6px 14px;
+        font-size: 13px;
+        font-family: Georgia, serif;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+      }
+
+      .suggestion-btn:hover {
+        background-color: #bee3f8;
+        transform: translateY(-1px);
+      }
+
+      /* === INPUT AREA === */
+      .input-area {
+        padding: 16px 20px;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+      }
+
+      .input-wrapper {
+        flex: 1;
+        position: relative;
+      }
+
+      .input-wrapper textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-family: Georgia, serif;
+        font-size: 15px;
+        resize: none;
+        height: 44px;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+      }
+
+      .input-wrapper textarea:focus {
+        outline: none;
+        border-color: #3182ce;
+      }
+
+      .char-count {
+        position: absolute;
+        bottom: -18px;
+        right: 4px;
+        font-size: 11px;
+        color: #a0aec0;
+      }
+
+      .char-count.warning {
+        color: #e53e3e;
+      }
+
+      .send-btn {
+        background-color: #3182ce;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-family: Georgia, serif;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        white-space: nowrap;
+      }
+
+      .send-btn:hover {
+        background-color: #2b6cb0;
+        transform: translateY(-1px);
+      }
+
+      .send-btn:disabled {
+        background-color: #cbd5e0;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* === FOOTER === */
+      .chat-footer {
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+        color: #a0aec0;
+        border-top: 1px solid #f7fafc;
+      }
+
+      /* === ANIMATIONS === */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <!-- Header -->
+      <div class="chat-header">
+        <h1>EduBot</h1>
+        <p>Your web development tutor</p>
+      </div>
+
+      <!-- Message area -->
+      <div class="messages" id="messages">
+        <!-- Welcome message from the bot -->
+        <div class="message bot">
+          <div class="bubble">
+            Hi there! I'm EduBot, your web development tutor.
+            Ask me about HTML, CSS, or JavaScript and I'll help you learn!
+            Try one of the suggested questions below, or type your own.
+          </div>
+        </div>
+      </div>
+
+      <!-- Suggested prompt buttons -->
+      <div class="suggestions" id="suggestions">
+        <label>Try asking:</label>
+        <button class="suggestion-btn" data-question="What does CSS stand for?">What does CSS stand for?</button>
+        <button class="suggestion-btn" data-question="How do I center a div?">How do I center a div?</button>
+        <button class="suggestion-btn" data-question="What is HTML?">What is HTML?</button>
+        <button class="suggestion-btn" data-question="How do event listeners work?">How do event listeners work?</button>
+      </div>
+
+      <!-- Input area -->
+      <div class="input-area">
+        <div class="input-wrapper">
+          <textarea
+            id="user-input"
+            placeholder="Ask about HTML, CSS, or JavaScript..."
+            maxlength="500"
+            rows="1"
+          ></textarea>
+          <span class="char-count" id="char-count">0 / 500</span>
+        </div>
+        <button class="send-btn" id="send-btn">Send</button>
+      </div>
+
+      <!-- Footer -->
+      <div class="chat-footer">
+        Demo version — responses are pre-written, not generated by AI
+      </div>
+    </div>
+
+    <script>
+      // ==============================================
+      // EDUBOT CHAT DEMO — JavaScript
+      // ==============================================
+      // This is a DEMO that shows how the EduBot interaction works.
+      // It uses pre-written responses matched by keywords.
+      // It is NOT connected to any AI API.
+
+      // --- FIND THE ELEMENTS ---
+      let messagesDiv = document.getElementById("messages");
+      let userInput = document.getElementById("user-input");
+      let sendBtn = document.getElementById("send-btn");
+      let charCount = document.getElementById("char-count");
+      let suggestionsDiv = document.getElementById("suggestions");
+
+      // --- SANITIZE FUNCTION ---
+      // This cleans user input so HTML tags are treated as plain text.
+      // This is the same technique taught in SKILL-07.
+      function sanitize(text) {
+        // Create a temporary div element
+        let temp = document.createElement("div");
+        // Setting textContent escapes all HTML characters
+        // This means <script> becomes &lt;script&gt; — safe!
+        temp.textContent = text;
+        // Read it back — now it's safe text
+        return temp.textContent;
+      }
+
+      // --- PRE-WRITTEN RESPONSES ---
+      // Each response is matched by keywords in the student's question.
+      // In a real EduBot, these would come from the AI API.
+      let responses = [
+        {
+          // Matches questions about what CSS stands for
+          keywords: ["css", "stand"],
+          answer: "CSS stands for <code>Cascading Style Sheets</code>. Think of it this way: " +
+            "HTML is like the walls and structure of a house, and CSS is like the paint, " +
+            "furniture, and decorations. CSS controls colors, fonts, spacing, and layout. " +
+            "Try adding a <code>&lt;style&gt;</code> section to your HTML file!"
+        },
+        {
+          // Matches questions about centering things
+          keywords: ["center"],
+          answer: "Great question! The easiest way to center a div is with flexbox. " +
+            "Add this CSS to the parent element:<br><br>" +
+            "<code>display: flex;</code><br>" +
+            "<code>justify-content: center;</code><br>" +
+            "<code>align-items: center;</code><br><br>" +
+            "The parent becomes a flex container, and its children get centered " +
+            "both horizontally and vertically. Try it on your page!"
+        },
+        {
+          // Matches questions about event listeners
+          keywords: ["event", "listen"],
+          answer: "An event listener waits for something to happen (like a click) " +
+            "and then runs code. Here's the syntax:<br><br>" +
+            "<code>element.addEventListener(\"click\", function() {</code><br>" +
+            "<code>&nbsp;&nbsp;// Your code runs when clicked!</code><br>" +
+            "<code>});</code><br><br>" +
+            "First, find the element with <code>getElementById</code>. " +
+            "Then attach the listener. The function inside runs every time " +
+            "the event happens. Try adding a click listener to a button!"
+        },
+        {
+          // Matches questions about things not working or being broken
+          keywords: ["not working", "broken"],
+          answer: "Let's debug! Here's a CSS checklist:<br><br>" +
+            "1. Did you <strong>save the file</strong>? (Ctrl+S)<br>" +
+            "2. Is your CSS inside <code>&lt;style&gt;</code> tags in the <code>&lt;head&gt;</code>?<br>" +
+            "3. Does every line end with a <strong>semicolon</strong> <code>;</code>?<br>" +
+            "4. Does your <strong>selector</strong> match an element in your HTML?<br><br>" +
+            "Check each one in order. The answer is usually one of these four things!"
+        },
+        {
+          // Matches questions about HTML
+          keywords: ["html"],
+          answer: "HTML stands for <code>HyperText Markup Language</code>. " +
+            "It's the language that defines the STRUCTURE of web pages. " +
+            "Every website you've ever visited is built with HTML. " +
+            "HTML uses <strong>tags</strong> like <code>&lt;h1&gt;</code> for headings, " +
+            "<code>&lt;p&gt;</code> for paragraphs, and <code>&lt;ul&gt;</code> for lists. " +
+            "Think of HTML as the skeleton of a web page!"
+        },
+        {
+          // Matches questions about JavaScript
+          keywords: ["javascript", "js"],
+          answer: "JavaScript is the programming language of the web. While HTML " +
+            "creates structure and CSS adds style, JavaScript adds <strong>behavior</strong>. " +
+            "It makes pages interactive — buttons that click, text that changes, " +
+            "forms that validate. You write JavaScript inside " +
+            "<code>&lt;script&gt;</code> tags at the bottom of your HTML file. " +
+            "Try writing <code>document.getElementById(\"myId\").textContent = \"Hello!\";</code>"
+        },
+        {
+          // Matches questions about variables
+          keywords: ["variable", "let", "const"],
+          answer: "A variable is like a labeled box that stores a value. In JavaScript, " +
+            "you create one with <code>let</code>:<br><br>" +
+            "<code>let score = 0;</code><br>" +
+            "<code>let playerName = \"Coder42\";</code><br><br>" +
+            "Use <code>let</code> when the value might change later. " +
+            "Use <code>const</code> when the value stays the same: " +
+            "<code>const maxScore = 100;</code>. " +
+            "Think of variables as sticky notes — you write a value on them " +
+            "and stick them on your data so you can find it later!"
+        }
+      ];
+
+      // The default response when no keywords match
+      let defaultResponse = "I'm a demo version of EduBot with pre-written responses. " +
+        "Try asking about CSS, HTML, JavaScript, centering elements, " +
+        "event listeners, or variables! In the real EduBot, I could answer " +
+        "many more questions about web development.";
+
+      // --- FIND A MATCHING RESPONSE ---
+      // Check the student's question against each response's keywords
+      function findResponse(question) {
+        // Convert to lowercase for matching
+        let lower = question.toLowerCase();
+
+        // Check each response's keywords
+        for (let i = 0; i < responses.length; i++) {
+          let keywords = responses[i].keywords;
+          // Check if ANY keyword is found in the question
+          for (let k = 0; k < keywords.length; k++) {
+            if (lower.indexOf(keywords[k]) !== -1) {
+              return responses[i].answer;
+            }
+          }
+        }
+
+        // No keywords matched — use the default response
+        return defaultResponse;
+      }
+
+      // --- ADD A MESSAGE TO THE CHAT ---
+      function addMessage(text, sender) {
+        // Create the message container
+        let messageDiv = document.createElement("div");
+        messageDiv.className = "message " + sender;
+
+        // Create the bubble
+        let bubbleDiv = document.createElement("div");
+        bubbleDiv.className = "bubble";
+
+        if (sender === "student") {
+          // Student messages use textContent (safe — no HTML rendering)
+          bubbleDiv.textContent = text;
+        } else {
+          // Bot messages use pre-written HTML (safe — we wrote it, not the user)
+          // NOTE: We NEVER put user input into innerHTML.
+          // Only our pre-written responses go here.
+          bubbleDiv.innerHTML = text;
+        }
+
+        messageDiv.appendChild(bubbleDiv);
+        messagesDiv.appendChild(messageDiv);
+
+        // Scroll to the bottom to show the new message
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+
+      // --- SEND A MESSAGE ---
+      function sendMessage(text) {
+        // Don't send empty messages
+        if (text.trim().length === 0) {
+          return;
+        }
+
+        // Sanitize the input (remove any HTML tags)
+        let safeText = sanitize(text.trim());
+
+        // Show the student's message
+        addMessage(safeText, "student");
+
+        // Clear the input
+        userInput.value = "";
+        updateCharCount();
+
+        // Find and show the bot's response
+        // Small delay to feel more natural
+        sendBtn.disabled = true;
+        setTimeout(function() {
+          let response = findResponse(safeText);
+          addMessage(response, "bot");
+          sendBtn.disabled = false;
+        }, 500);
+      }
+
+      // --- CHARACTER COUNTER ---
+      function updateCharCount() {
+        let length = userInput.value.length;
+        charCount.textContent = length + " / 500";
+
+        // Turn red when close to the limit
+        if (length > 450) {
+          charCount.className = "char-count warning";
+        } else {
+          charCount.className = "char-count";
+        }
+      }
+
+      // --- EVENT LISTENERS ---
+
+      // Send button click
+      sendBtn.addEventListener("click", function() {
+        sendMessage(userInput.value);
+      });
+
+      // Enter key sends the message (Shift+Enter for new line)
+      userInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();  // Don't add a new line
+          sendMessage(userInput.value);
+        }
+      });
+
+      // Update character count as user types
+      userInput.addEventListener("input", updateCharCount);
+
+      // Suggestion button clicks
+      let suggestionButtons = suggestionsDiv.querySelectorAll(".suggestion-btn");
+      for (let i = 0; i < suggestionButtons.length; i++) {
+        suggestionButtons[i].addEventListener("click", function() {
+          let question = this.getAttribute("data-question");
+          sendMessage(question);
+        });
+      }
+    </script>
+  </body>
+</html>

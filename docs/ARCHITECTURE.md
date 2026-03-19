@@ -227,7 +227,7 @@ The `.github/workflows/safety-check.yml` runs on every push and PR:
 Schools that fork the repo can get updates via:
 ```bash
 # Add the upstream remote (one time)
-git remote add upstream https://github.com/your-org/edustack.git
+git remote add upstream https://github.com/Cartooli/edustack.git
 
 # Pull updates
 git fetch upstream

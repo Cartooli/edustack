@@ -46,7 +46,7 @@ git merge origin/main
 ### For Forks
 ```bash
 # One-time setup
-git remote add upstream https://github.com/your-org/edustack.git
+git remote add upstream https://github.com/Cartooli/edustack.git
 
 # Update process
 git fetch upstream
@@ -69,7 +69,7 @@ You'll be emailed when any new release is published, including security patches.
 
 ### RSS Feed
 The releases page has an RSS feed:
-`https://github.com/your-org/edustack/releases.atom`
+`https://github.com/Cartooli/edustack/releases.atom`
 
 ---
 

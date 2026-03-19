@@ -64,7 +64,7 @@ EduStack was built from the ground up for the most cautious school environments.
 ### Setup (One Time)
 ```bash
 # Clone EduStack to the school computer
-git clone https://github.com/your-org/edustack.git
+git clone https://github.com/Cartooli/edustack.git
 
 # Enter the directory
 cd edustack

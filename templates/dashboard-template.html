@@ -45,15 +45,13 @@
       /* === STAT CARDS === */
       /* The row of stat cards at the top */
       .stats-row {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 16px;
         margin-bottom: 24px;
-        flex-wrap: wrap;
       }
 
       .stat-card {
-        flex: 1;
-        min-width: 150px;
         background-color: white;
         padding: 20px;
         border-radius: 12px;

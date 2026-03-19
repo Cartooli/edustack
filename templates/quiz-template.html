@@ -97,6 +97,12 @@
         color: #22543d;
       }
 
+      /* Focus ring for keyboard navigation */
+      .answer-btn:focus-visible {
+        outline: 3px solid #3182ce;
+        outline-offset: 2px;
+      }
+
       /* Wrong answer highlight */
       .answer-btn.wrong {
         border-color: #e53e3e;
@@ -143,6 +149,11 @@
       .restart-btn:hover {
         background-color: #2b6cb0;
         transform: translateY(-2px);
+      }
+
+      .restart-btn:focus-visible {
+        outline: 3px solid #3182ce;
+        outline-offset: 2px;
       }
 
       /* === HIDDEN CLASS === */

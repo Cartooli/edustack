@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Styled Page</title>
+    <style>
+      /* ========================================= */
+      /* BODY: The whole page background and text  */
+      /* ========================================= */
+      body {
+        background-color: #f0f4f8;  /* Light blue-gray background */
+        color: #2d3748;             /* Dark gray text (easier than black) */
+        font-family: Georgia, serif; /* A readable serif font */
+        line-height: 1.6;           /* Space between lines */
+        margin: 0;                  /* Remove default margin */
+        padding: 20px;              /* Add some breathing room */
+      }
+
+      /* ========================================= */
+      /* CONTAINER: Centers content on the page    */
+      /* ========================================= */
+      .container {
+        max-width: 700px;                        /* Don't get too wide */
+        margin: 0 auto;                          /* Center on the page */
+        padding: 30px;                           /* Space inside the box */
+        background-color: white;                 /* White card */
+        border-radius: 8px;                      /* Rounded corners */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);  /* Subtle shadow */
+      }
+
+      /* ========================================= */
+      /* HEADING: The big title at the top         */
+      /* ========================================= */
+      h1 {
+        color: #2b6cb0;                          /* Blue heading */
+        text-align: center;                      /* Centered */
+        padding-bottom: 15px;                    /* Space below */
+        border-bottom: 3px solid #bee3f8;        /* Light blue line */
+        margin-bottom: 25px;                     /* Space before next element */
+      }
+
+      /* ========================================= */
+      /* SUBHEADING: Section titles                */
+      /* ========================================= */
+      h2 {
+        color: #2c5282;                          /* Darker blue */
+        margin-top: 30px;                        /* Space above */
+        padding-bottom: 5px;                     /* Small space below text */
+        border-bottom: 1px solid #e2e8f0;        /* Thin gray line */
+      }
+
+      /* ========================================= */
+      /* LIST: Styled bullet points                */
+      /* ========================================= */
+      ul {
+        list-style: none;   /* Remove default bullets */
+        padding: 0;         /* Remove default padding */
+      }
+
+      li {
+        padding: 10px 16px;                      /* Space inside each item */
+        margin: 6px 0;                           /* Space between items */
+        background-color: #ebf8ff;               /* Light blue background */
+        border-radius: 6px;                      /* Rounded corners */
+        border-left: 4px solid #3182ce;          /* Blue left border */
+        transition: all 0.2s ease;               /* Smooth changes */
+      }
+
+      /* When you hover over a list item */
+      li:hover {
+        background-color: #bee3f8;               /* Darker blue */
+        transform: translateX(4px);              /* Slide right a tiny bit */
+      }
+
+      /* ========================================= */
+      /* TABLE: Organized data                     */
+      /* ========================================= */
+      table {
+        width: 100%;                             /* Full width */
+        border-collapse: collapse;               /* No gaps between cells */
+        margin-top: 10px;
+      }
+
+      th {
+        background-color: #2b6cb0;               /* Blue header */
+        color: white;                            /* White text */
+        padding: 10px;
+        text-align: left;
+      }
+
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #e2e8f0;        /* Light bottom border */
+      }
+
+      /* Highlight every other row */
+      tr:nth-child(even) {
+        background-color: #f7fafc;
+      }
+
+      /* ========================================= */
+      /* FOOTER: Bottom of the page                */
+      /* ========================================= */
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 1px solid #e2e8f0;
+        color: #a0aec0;                          /* Light gray */
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      
+      <h1>Welcome to My Page</h1>
+      
+      <p>I am learning to build web pages with <strong>HTML</strong> and <strong>CSS</strong>. 
+         This page shows off what I can do so far!</p>
+      
+      <h2>Things I Like</h2>
+      <ul>
+        <li>Building things with code</li>
+        <li>Solving puzzles and challenges</li>
+        <li>Learning new technologies</li>
+        <li>Creative projects and design</li>
+      </ul>
+      
+      <h2>What I Have Learned</h2>
+      <p>I learned that <strong>HTML</strong> controls <em>what is on the page</em>, 
+         and <strong>CSS</strong> controls <em>how it looks</em>.</p>
+      <p>Think of HTML as the building structure and CSS as the decoration!</p>
+      
+      <h2>My Schedule</h2>
+      <table>
+        <tr>
+          <th>Period</th>
+          <th>Subject</th>
+          <th>Favorite Part</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Math</td>
+          <td>Problem solving</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Science</td>
+          <td>Experiments</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>English</td>
+          <td>Creative writing</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Web Development</td>
+          <td>Everything!</td>
+        </tr>
+      </table>
+      
+      <div class="footer">
+        Made with HTML and CSS &mdash; EduStack Skill 02
+      </div>
+      
+    </div>
+  </body>
+</html>

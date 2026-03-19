@@ -1,0 +1,44 @@
+# =============================================================================
+# EduStack .gitignore
+# Keeps sensitive, personal, and temporary files out of the repository.
+# =============================================================================
+
+# --- Secrets and Configuration ---
+.env
+.env.*
+*.key
+*.pem
+*.p12
+config/teacher-settings.json
+
+# --- Logs (contain interaction data) ---
+logs/
+*.log
+
+# --- Student Work (may contain personal info) ---
+student-work/
+
+# --- OS and Editor Artifacts ---
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/settings.json
+.idea/
+
+# --- Dependencies (should never exist) ---
+node_modules/
+__pycache__/
+*.pyc
+
+# --- Build artifacts ---
+dist/
+build/
+*.min.js
+*.min.css
+
+# --- Temporary files ---
+tmp/
+temp/
+*.tmp
+*.bak

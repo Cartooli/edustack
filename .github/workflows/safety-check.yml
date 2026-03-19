@@ -1,0 +1,62 @@
+name: EduStack Safety Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  safety-check:
+    name: Safety Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+      
+      - name: Run safety check
+        run: ./scripts/safety-check.sh
+      
+      - name: Check for .env files
+        run: |
+          if find . -name ".env" -not -path "./.git/*" | grep -q .; then
+            echo "FAIL: .env file found in repository!"
+            exit 1
+          fi
+          echo "PASS: No .env files found"
+      
+      - name: Check for large files
+        run: |
+          LARGE_FILES=$(find . -size +1M -not -path "./.git/*" -not -path "*/node_modules/*" 2>/dev/null || true)
+          if [ -n "$LARGE_FILES" ]; then
+            echo "WARNING: Large files found (>1MB):"
+            echo "$LARGE_FILES"
+            echo "Please review — school networks may be slow."
+          fi
+          echo "PASS: File size check complete"
+      
+      - name: Validate HTML examples
+        run: |
+          for f in $(find examples templates -name "*.html" 2>/dev/null); do
+            # Check for dangerous patterns in HTML files
+            if grep -qE 'eval\(|innerHTML\s*=|document\.write|<script.*src=' "$f"; then
+              echo "FAIL: Unsafe pattern in $f"
+              exit 1
+            fi
+            echo "PASS: $f"
+          done
+          echo "All HTML files validated"
+      
+      - name: Check no external resources in HTML
+        run: |
+          for f in $(find examples templates skills -name "*.html" 2>/dev/null); do
+            if grep -qE 'src="https?://|href="https?://|url\(https?://' "$f"; then
+              echo "FAIL: External resource reference in $f"
+              exit 1
+            fi
+          done
+          echo "PASS: No external resources in HTML files"

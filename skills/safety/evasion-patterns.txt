@@ -1,0 +1,44 @@
+# =============================================================================
+# EduStack Evasion Patterns
+# Patterns students commonly use to bypass content filters.
+# Used by content-filter.sh for fuzzy matching.
+# Format: TECHNIQUE|DESCRIPTION
+# =============================================================================
+
+# Letter-number substitutions
+substitution|@ for a
+substitution|4 for a
+substitution|3 for e
+substitution|1 for i
+substitution|! for i
+substitution|0 for o
+substitution|5 for s
+substitution|$ for s
+substitution|7 for t
+substitution|+ for t
+substitution|8 for b
+substitution|9 for g
+
+# Space insertion
+spacing|Single letters with spaces between them
+
+# Character repetition
+repetition|Extra repeated characters (baaad)
+
+# Reversed text
+reversal|Words written backwards
+
+# Mixed case
+casing|Alternating upper and lower case
+
+# Unicode lookalikes
+unicode|Cyrillic 'а' for Latin 'a'
+unicode|Greek 'ο' for Latin 'o'
+unicode|Full-width characters
+unicode|Circled characters
+
+# Separator insertion
+separator|Dots between letters (b.a.d)
+separator|Dashes between letters (b-a-d)
+separator|Underscores between letters (b_a_d)
+separator|Zero-width characters between letters

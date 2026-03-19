@@ -1,0 +1,32 @@
+#!/bin/bash
+# =============================================================================
+# EduStack Pre-Commit Hook
+# Runs safety checks before allowing a commit.
+# Install: cp scripts/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+# =============================================================================
+
+echo "Running EduStack safety checks..."
+
+# Check for secrets in staged files
+STAGED=$(git diff --cached --name-only --diff-filter=ACM)
+
+for file in $STAGED; do
+    # Skip binary files
+    if file "$file" | grep -q "text"; then
+        # Check for common secret patterns
+        if grep -qE 'sk-[a-zA-Z0-9]{20,}|AKIA[0-9A-Z]{16}|PRIVATE KEY' "$file" 2>/dev/null; then
+            echo "BLOCKED: Possible secret in $file"
+            echo "Remove the secret and try again."
+            exit 1
+        fi
+        
+        # Check for .env files
+        if [[ "$file" == ".env" ]] || [[ "$file" == ".env."* ]]; then
+            echo "BLOCKED: .env file should not be committed"
+            exit 1
+        fi
+    fi
+done
+
+echo "Safety checks passed."
+exit 0

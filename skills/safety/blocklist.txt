@@ -1,0 +1,122 @@
+# =============================================================================
+# EduStack Content Blocklist
+# Format: CATEGORY|PATTERN
+# Categories: profanity, violence, substance, sexual, hate, self-harm, hacking, personal
+#
+# This is a STARTER list. Schools should customize based on their community standards.
+# Lines starting with # are comments.
+#
+# IMPORTANT: This file is intentionally minimal in this public template.
+# A full production blocklist would contain thousands of entries.
+# Schools deploying EduStack should augment this with their district's
+# standard content filtering word lists.
+# =============================================================================
+
+# --- Hacking & Bypass ---
+hacking|hack
+hacking|exploit
+hacking|vulnerability
+hacking|injection
+hacking|brute force
+hacking|phishing
+hacking|malware
+hacking|ransomware
+hacking|trojan
+hacking|keylogger
+hacking|rootkit
+hacking|backdoor
+hacking|ddos
+hacking|botnet
+hacking|darkweb
+hacking|dark web
+hacking|tor browser
+hacking|proxy bypass
+hacking|vpn bypass
+hacking|firewall bypass
+
+# --- Prompt Injection (covered by script but backup here) ---
+hacking|jailbreak
+hacking|ignore instructions
+hacking|override safety
+hacking|developer mode
+hacking|sudo mode
+
+# --- Substance References ---
+substance|marijuana
+substance|cocaine
+substance|heroin
+substance|meth
+substance|fentanyl
+substance|vaping
+substance|vape
+substance|juul
+substance|nicotine
+substance|tobacco
+substance|cigarette
+substance|alcohol
+substance|beer
+substance|wine
+substance|liquor
+substance|drunk
+substance|wasted
+substance|getting high
+substance|get high
+substance|stoned
+substance|edibles
+
+# --- Violence ---
+violence|kill
+violence|murder
+violence|weapon
+violence|gun
+violence|rifle
+violence|pistol
+violence|knife attack
+violence|bomb
+violence|explosive
+violence|shoot
+violence|stab
+violence|assault
+violence|torture
+
+# --- Self-harm ---
+self-harm|suicide
+self-harm|self harm
+self-harm|cut myself
+self-harm|hurt myself
+self-harm|end my life
+self-harm|want to die
+
+# --- Hate Speech ---
+# NOTE: Specific slurs are omitted from this public template.
+# Schools should add their district's hate speech word list.
+hate|hate speech
+hate|white supremacy
+hate|nazi
+hate|kkk
+
+# --- Personal Info Solicitation ---
+personal|what is your address
+personal|where do you live
+personal|what school do you go to
+personal|how old are you
+personal|what is your phone number
+personal|what is your email
+personal|send me a photo
+personal|what do you look like
+
+# --- Off-Topic for Education ---
+# These aren't "bad" words but are outside the scope of web development education
+offtopic|boyfriend
+offtopic|girlfriend
+offtopic|dating
+offtopic|crush
+offtopic|hot or not
+offtopic|rate me
+offtopic|am i pretty
+offtopic|am i ugly
+offtopic|gambling
+offtopic|casino
+offtopic|bet
+offtopic|wager
+offtopic|lottery

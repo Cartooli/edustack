@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About EduStack</title>
+  <style>
+    /* ========================================= */
+    /* PAGE SETUP: Background and base styles   */
+    /* ========================================= */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+      color: #2d3748;
+      font-family: Georgia, serif;
+      line-height: 1.6;
+    }
+
+    /* ========================================= */
+    /* HEADER: Top navigation and title         */
+    /* ========================================= */
+    .header {
+      background: linear-gradient(135deg, #2b6cb0, #4299e1);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: normal;
+    }
+
+    /* ========================================= */
+    /* NAVIGATION: Links to other pages          */
+    /* ========================================= */
+    .nav {
+      background-color: white;
+      padding: 15px 20px;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .nav a {
+      color: #2b6cb0;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .nav a:hover,
+    .nav a:focus {
+      background-color: #edf2f7;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    /* ========================================= */
+    /* CONTAINER: Main content area              */
+    /* ========================================= */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      color: #2b6cb0;
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #bee3f8;
+    }
+
+    .section h3 {
+      color: #2c5282;
+      margin-top: 25px;
+    }
+
+    .section ul,
+    .section ol {
+      margin: 15px 0;
+      padding-left: 30px;
+    }
+
+    .section li {
+      margin: 8px 0;
+    }
+
+    .highlight {
+      background-color: #edf2f7;
+      padding: 20px;
+      border-radius: 4px;
+      border-left: 4px solid #2b6cb0;
+      margin: 20px 0;
+    }
+
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .safety-item {
+      background-color: #edf2f7;
+      padding: 15px;
+      border-radius: 4px;
+      border: 2px solid #cbd5e0;
+    }
+
+    .safety-item strong {
+      color: #2b6cb0;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* ========================================= */
+    /* FOOTER: Bottom links                     */
+    /* ========================================= */
+    .footer {
+      background-color: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 60px;
+      color: #718096;
+    }
+
+    .footer a {
+      color: #2b6cb0;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a:hover,
+    .footer a:focus {
+      text-decoration: underline;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    /* ========================================= */
+    /* RESPONSIVE: Mobile adjustments            */
+    /* ========================================= */
+    @media (max-width: 768px) {
+      .safety-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ========================================= */
+    /* FOCUS VISIBLE: Keyboard navigation        */
+    /* ========================================= */
+    *:focus-visible {
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>About EduStack</h1>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="getting-started.html">Getting Started</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Mission Section -->
+    <section class="section" aria-labelledby="mission-heading">
+      <h2 id="mission-heading">Our Mission</h2>
+      <p>EduStack is a <strong>free, open-source, school-safe framework</strong> that teaches middle school students (grades 6–8) to build real web apps with AI assistance.</p>
+      <p>We believe that:</p>
+      <ul>
+        <li><strong>Students learn by doing</strong> — not just reading or taking quizzes</li>
+        <li><strong>Safety comes first</strong> — every feature is designed to pass review by principals, superintendents, and parents</li>
+        <li><strong>Teachers don't need to be experts</strong> — you learn each lesson 15 minutes before you teach it</li>
+        <li><strong>Education should be free</strong> — 100% free, MIT licensed, forever</li>
+      </ul>
+    </section>
+
+    <!-- Why EduStack Section -->
+    <section class="section" aria-labelledby="why-heading">
+      <h2 id="why-heading">Why EduStack?</h2>
+      <div class="highlight">
+        <p><strong>EduStack solves real problems in middle school coding education:</strong></p>
+      </div>
+      <ul>
+        <li><strong>Coding tutorials are boring</strong> → Students build real projects from day one</li>
+        <li><strong>AI tools aren't school-safe</strong> → 7-layer safety system blocks inappropriate content</li>
+        <li><strong>Teachers don't know code</strong> → Teacher guides explain everything before each lesson</li>
+        <li><strong>Existing platforms cost money</strong> → 100% free, MIT licensed, forever</li>
+        <li><strong>Online environments are risky</strong> → Runs locally — no accounts, no cloud, no tracking</li>
+      </ul>
+    </section>
+
+    <!-- Safety Section -->
+    <section class="section" aria-labelledby="safety-heading">
+      <h2 id="safety-heading">🔒 Safety First — Always</h2>
+      <p>EduStack was built from the ground up for the most cautious school environments. Every feature was designed to pass review by principals, superintendents, school boards, and parents.</p>
+      
+      <h3>The 7-Layer Safety System</h3>
+      <div class="safety-grid">
+        <div class="safety-item">
+          <strong>1. Input Sanitization</strong>
+          All student input is cleaned, validated, and length-limited before processing
+        </div>
+        <div class="safety-item">
+          <strong>2. Content Filtering</strong>
+          Multi-pass profanity, violence, and inappropriate content detection
+        </div>
+        <div class="safety-item">
+          <strong>3. XSS Protection</strong>
+          All outputs are HTML-escaped and sandboxed; no raw HTML injection possible
+        </div>
+        <div class="safety-item">
+          <strong>4. Prompt Guardrails</strong>
+          AI prompts are pre-structured so students cannot override safety instructions
+        </div>
+        <div class="safety-item">
+          <strong>5. Output Screening</strong>
+          AI responses are screened after generation before display
+        </div>
+        <div class="safety-item">
+          <strong>6. Locale Enforcement</strong>
+          System is configured for U.S. educational use; English-only for v1
+        </div>
+        <div class="safety-item">
+          <strong>7. Audit Logging</strong>
+          Every AI interaction is logged locally for teacher review (never transmitted)
+        </div>
+      </div>
+
+      <h3>What Makes This Safer Than Other Platforms?</h3>
+      <ul>
+        <li><strong>No user accounts.</strong> No emails. No passwords. No personal data collected. Ever.</li>
+        <li><strong>No internet required</strong> for core lessons (after initial clone)</li>
+        <li><strong>No cloud storage.</strong> Everything stays on the school device.</li>
+        <li><strong>No chat rooms.</strong> No social features. No messaging between students.</li>
+        <li><strong>No external links.</strong> All content is self-contained in the repo.</li>
+        <li><strong>No ads.</strong> No tracking. No analytics. No cookies.</li>
+        <li><strong>Teacher override.</strong> Teachers can disable AI features entirely and use static content only.</li>
+      </ul>
+    </section>
+
+    <!-- Compliance Section -->
+    <section class="section" aria-labelledby="compliance-heading">
+      <h2 id="compliance-heading">For School Administrators</h2>
+      <p><strong>EduStack is designed to meet your requirements:</strong></p>
+      <ul>
+        <li>✅ <strong>COPPA compliant</strong> — Collects zero personal data from students</li>
+        <li>✅ <strong>FERPA compatible</strong> — No student records are created or transmitted</li>
+        <li>✅ <strong>CIPA friendly</strong> — All content is pre-screened; no internet access required during use</li>
+        <li>✅ <strong>ADA accessible</strong> — All content works with screen readers and keyboard navigation</li>
+        <li>✅ <strong>Free</strong> — MIT license, no cost, no subscriptions, no hidden fees</li>
+        <li>✅ <strong>Open source</strong> — Every line of code is publicly auditable</li>
+        <li>✅ <strong>No vendor lock-in</strong> — Fork it, modify it, own it</li>
+      </ul>
+    </section>
+
+    <!-- License Section -->
+    <section class="section" aria-labelledby="license-heading">
+      <h2 id="license-heading">License</h2>
+      <p>MIT. Free forever. Go teach something.</p>
+      <p><em>EduStack is not affiliated with any school district, state education department, or government agency. It is an independent open-source project designed to support public education.</em></p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      <a href="index.html">Home</a> |
+      <a href="getting-started.html">Getting Started</a> |
+      <a href="https://github.com/Cartooli/edustack" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </footer>
+</body>
+</html>

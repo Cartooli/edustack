@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduStack — Curriculum Hub</title>
+  <style>
+    /* ========================================= */
+    /* PAGE SETUP: Background and base styles   */
+    /* ========================================= */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+      color: #2d3748;
+      font-family: Georgia, serif;
+      line-height: 1.6;
+    }
+
+    /* ========================================= */
+    /* HEADER: Top navigation and title         */
+    /* ========================================= */
+    .header {
+      background: linear-gradient(135deg, #2b6cb0, #4299e1);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: normal;
+    }
+
+    .header p {
+      margin: 10px 0 0;
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    /* ========================================= */
+    /* NAVIGATION: Links to other pages          */
+    /* ========================================= */
+    .nav {
+      background-color: white;
+      padding: 15px 20px;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .nav a {
+      color: #2b6cb0;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .nav a:hover,
+    .nav a:focus {
+      background-color: #edf2f7;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    /* ========================================= */
+    /* CONTAINER: Main content area              */
+    /* ========================================= */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    /* ========================================= */
+    /* QUICK START: Today's lesson selector      */
+    /* ========================================= */
+    .quick-start {
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .quick-start h2 {
+      margin: 0 0 15px;
+      color: #2b6cb0;
+      font-size: 22px;
+    }
+
+    .quick-start-controls {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .quick-start select {
+      padding: 10px 15px;
+      font-size: 16px;
+      font-family: Georgia, serif;
+      border: 2px solid #cbd5e0;
+      border-radius: 4px;
+      background-color: white;
+      color: #2d3748;
+      cursor: pointer;
+    }
+
+    .quick-start select:focus {
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+      border-color: #2b6cb0;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      font-family: Georgia, serif;
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover,
+    .btn:focus {
+      background-color: #2c5282;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    .btn:active {
+      background-color: #2a4365;
+    }
+
+    /* ========================================= */
+    /* SEARCH AND FILTER: Find lessons           */
+    /* ========================================= */
+    .search-filter {
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .search-filter h2 {
+      margin: 0 0 15px;
+      color: #2b6cb0;
+      font-size: 22px;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 16px;
+      font-family: Georgia, serif;
+      border: 2px solid #cbd5e0;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+
+    .search-box:focus {
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+      border-color: #2b6cb0;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-family: Georgia, serif;
+      background-color: #edf2f7;
+      color: #2d3748;
+      border: 2px solid #cbd5e0;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn:focus {
+      background-color: #e2e8f0;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    .filter-btn.active {
+      background-color: #2b6cb0;
+      color: white;
+      border-color: #2b6cb0;
+    }
+
+    /* ========================================= */
+    /* PREP TIME CALCULATOR: Running total       */
+    /* ========================================= */
+    .prep-calculator {
+      background-color: #edf2f7;
+      padding: 15px 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      text-align: center;
+      border: 2px solid #cbd5e0;
+    }
+
+    .prep-calculator strong {
+      color: #2b6cb0;
+      font-size: 18px;
+    }
+
+    /* ========================================= */
+    /* LESSON CARDS: Grid of lesson cards        */
+    /* ========================================= */
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .lesson-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 25px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .lesson-card:focus-within {
+      border-color: #2b6cb0;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    .lesson-card h3 {
+      margin: 0 0 10px;
+      color: #2b6cb0;
+      font-size: 20px;
+    }
+
+    .lesson-meta {
+      display: flex;
+      gap: 15px;
+      margin: 10px 0;
+      font-size: 14px;
+      color: #718096;
+    }
+
+    .lesson-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .lesson-description {
+      margin: 15px 0;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    .lesson-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .lesson-links a {
+      padding: 8px 16px;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .link-teacher {
+      background-color: #2b6cb0;
+      color: white;
+    }
+
+    .link-teacher:hover,
+    .link-teacher:focus {
+      background-color: #2c5282;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    .link-student {
+      background-color: #edf2f7;
+      color: #2d3748;
+      border: 2px solid #cbd5e0;
+    }
+
+    .link-student:hover,
+    .link-student:focus {
+      background-color: #e2e8f0;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    /* ========================================= */
+    /* EXAMPLE PREVIEW: Inline iframe            */
+    /* ========================================= */
+    .example-preview {
+      margin-top: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .example-preview iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      display: block;
+    }
+
+    .example-fallback {
+      padding: 20px;
+      text-align: center;
+      background-color: #edf2f7;
+      color: #4a5568;
+    }
+
+    .example-fallback a {
+      color: #2b6cb0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .example-fallback a:hover,
+    .example-fallback a:focus {
+      text-decoration: underline;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    /* ========================================= */
+    /* NO RESULTS: Empty state                   */
+    /* ========================================= */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #718096;
+    }
+
+    .no-results h3 {
+      color: #4a5568;
+      margin-bottom: 10px;
+    }
+
+    /* ========================================= */
+    /* FOOTER: Bottom links                     */
+    /* ========================================= */
+    .footer {
+      background-color: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 60px;
+      color: #718096;
+    }
+
+    .footer a {
+      color: #2b6cb0;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a:hover,
+    .footer a:focus {
+      text-decoration: underline;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    /* ========================================= */
+    /* KEYBOARD SHORTCUTS: Visual indicator      */
+    /* ========================================= */
+    .keyboard-hint {
+      font-size: 12px;
+      color: #a0aec0;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* ========================================= */
+    /* RESPONSIVE: Mobile adjustments            */
+    /* ========================================= */
+    @media (max-width: 768px) {
+      .lessons-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-start-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .quick-start select,
+      .btn {
+        width: 100%;
+      }
+
+      .filters {
+        justify-content: center;
+      }
+    }
+
+    /* ========================================= */
+    /* FOCUS VISIBLE: Keyboard navigation        */
+    /* ========================================= */
+    *:focus-visible {
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>🎓 EduStack Curriculum Hub</h1>
+    <p>Your guide to teaching web development in middle school</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="getting-started.html">Getting Started</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Quick Start Section -->
+    <section class="quick-start" aria-labelledby="quick-start-heading">
+      <h2 id="quick-start-heading">Today's Lesson</h2>
+      <div class="quick-start-controls">
+        <label for="lesson-select" style="display: none;">Select lesson:</label>
+        <select id="lesson-select" aria-label="Select today's lesson">
+          <option value="">Choose a lesson...</option>
+        </select>
+        <button class="btn" id="quick-start-btn" aria-label="Open teacher guide and student skill for selected lesson">
+          Start Today's Lesson
+        </button>
+      </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="search-filter" aria-labelledby="search-heading">
+      <h2 id="search-heading">Find Lessons</h2>
+      <input 
+        type="text" 
+        class="search-box" 
+        id="search-input" 
+        placeholder="Search lessons by name, topic, or keyword..."
+        aria-label="Search lessons"
+      >
+      <div class="filters" role="group" aria-label="Filter lessons">
+        <button class="filter-btn" data-filter="all">All Lessons</button>
+        <button class="filter-btn" data-filter="unit1">Unit 1: Foundations</button>
+        <button class="filter-btn" data-filter="unit2">Unit 2: Interactive</button>
+        <button class="filter-btn" data-filter="unit3">Unit 3: AI-Assisted</button>
+        <button class="filter-btn" data-filter="beginner">Beginner</button>
+        <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+        <button class="filter-btn" data-filter="advanced">Advanced</button>
+      </div>
+    </section>
+
+    <!-- Prep Time Calculator -->
+    <div class="prep-calculator" id="prep-calculator" role="status" aria-live="polite">
+      <strong>Total Prep Time:</strong> <span id="prep-total">0 minutes</span>
+    </div>
+
+    <!-- Lessons Grid -->
+    <div class="lessons-grid" id="lessons-grid" role="list" aria-label="Curriculum lessons">
+      <!-- Lesson cards will be inserted here by JavaScript -->
+    </div>
+
+    <!-- No Results Message -->
+    <div class="no-results" id="no-results" style="display: none;" role="status">
+      <h3>No lessons found</h3>
+      <p>Try adjusting your search or filters</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      <a href="about.html">About EduStack</a> |
+      <a href="getting-started.html">Getting Started</a> |
+      <a href="https://github.com/Cartooli/edustack" target="_blank" rel="noopener">GitHub</a>
+    </p>
+    <p class="keyboard-hint">Tip: Press <kbd>/</kbd> to focus search, arrow keys to navigate, <kbd>Enter</kbd> to open</p>
+  </footer>
+
+  <script>
+    // =========================================
+    // CURRICULUM DATA: All lessons in JSON
+    // =========================================
+    const curriculumData = [
+      {
+        id: 1,
+        number: "01",
+        title: "Hello World",
+        unit: "unit1",
+        difficulty: "beginner",
+        prepTime: 10,
+        description: "Students create their first HTML file and learn that web pages are just text files with special tags.",
+        builds: "Their first web page",
+        teacherGuide: "docs/teacher-guides/LESSON-01.md",
+        studentSkill: "skills/learn/SKILL-01-hello-world.md",
+        example: "examples/html-basics/index.html",
+        keywords: ["html", "basics", "first page", "tags", "structure"]
+      },
+      {
+        id: 2,
+        number: "02",
+        title: "Style It Up",
+        unit: "unit1",
+        difficulty: "beginner",
+        prepTime: 10,
+        description: "Students learn CSS fundamentals — colors, fonts, spacing, and layout.",
+        builds: "Styled web page with colors and layout",
+        teacherGuide: "docs/teacher-guides/LESSON-02.md",
+        studentSkill: "skills/learn/SKILL-02-css-basics.md",
+        example: "examples/css-fun/index.html",
+        keywords: ["css", "styling", "colors", "layout", "design"]
+      },
+      {
+        id: 3,
+        number: "03",
+        title: "Make It Move",
+        unit: "unit1",
+        difficulty: "beginner",
+        prepTime: 10,
+        description: "Students add CSS animations and transitions to make their pages interactive.",
+        builds: "Animated web page with transitions",
+        teacherGuide: "docs/teacher-guides/LESSON-03.md",
+        studentSkill: "skills/learn/SKILL-03-animations.md",
+        example: null,
+        keywords: ["css", "animations", "transitions", "motion", "interactive"]
+      },
+      {
+        id: 4,
+        number: "04",
+        title: "My First Site",
+        unit: "unit1",
+        difficulty: "beginner",
+        prepTime: 15,
+        description: "Students combine HTML and CSS to build a complete multi-section personal website.",
+        builds: "Personal 'About Me' page",
+        teacherGuide: "docs/teacher-guides/LESSON-04.md",
+        studentSkill: "skills/learn/SKILL-04-first-site.md",
+        example: "examples/css-fun/index.html",
+        keywords: ["html", "css", "project", "personal site", "portfolio"]
+      },
+      {
+        id: 5,
+        number: "05",
+        title: "Click & React",
+        unit: "unit2",
+        difficulty: "intermediate",
+        prepTime: 15,
+        description: "Students learn JavaScript basics — variables, functions, and making buttons do things.",
+        builds: "Interactive page with buttons and JavaScript",
+        teacherGuide: "docs/teacher-guides/LESSON-05.md",
+        studentSkill: "skills/learn/SKILL-05-javascript.md",
+        example: "examples/js-intro/index.html",
+        keywords: ["javascript", "js", "interactive", "buttons", "functions", "variables"]
+      },
+      {
+        id: 6,
+        number: "06",
+        title: "Data Display",
+        unit: "unit2",
+        difficulty: "intermediate",
+        prepTime: 15,
+        description: "Students work with arrays and objects to display data dynamically.",
+        builds: "Class weather dashboard",
+        teacherGuide: "docs/teacher-guides/LESSON-06.md",
+        studentSkill: "skills/learn/SKILL-06-data-display.md",
+        example: null,
+        keywords: ["javascript", "data", "arrays", "objects", "dashboard", "dynamic"]
+      },
+      {
+        id: 7,
+        number: "07",
+        title: "Forms & Input",
+        unit: "unit2",
+        difficulty: "intermediate",
+        prepTime: 15,
+        description: "Students learn to accept user input through forms and handle it safely.",
+        builds: "Feedback form with safe input handling",
+        teacherGuide: "docs/teacher-guides/LESSON-07.md",
+        studentSkill: "skills/learn/SKILL-07-forms-input.md",
+        example: null,
+        keywords: ["forms", "input", "validation", "security", "sanitization"]
+      },
+      {
+        id: 8,
+        number: "08",
+        title: "Mini App",
+        unit: "unit2",
+        difficulty: "intermediate",
+        prepTime: 20,
+        description: "Students build a complete interactive app — calculator, quiz, or timer.",
+        builds: "Calculator or quiz app",
+        teacherGuide: "docs/teacher-guides/LESSON-08.md",
+        studentSkill: "skills/learn/SKILL-08-mini-app.md",
+        example: null,
+        keywords: ["app", "project", "calculator", "quiz", "interactive", "complete"]
+      },
+      {
+        id: 9,
+        number: "09",
+        title: "Meet Your AI Tutor",
+        unit: "unit3",
+        difficulty: "advanced",
+        prepTime: 15,
+        description: "Students learn AI literacy and how to interact with the EduBot AI tutor safely.",
+        builds: "Guided AI conversation experience",
+        teacherGuide: "docs/teacher-guides/LESSON-09.md",
+        studentSkill: "skills/learn/SKILL-09-ai-tutor.md",
+        example: "examples/ai-chat/index.html",
+        keywords: ["ai", "tutor", "edubot", "literacy", "safety", "conversation"]
+      },
+      {
+        id: 10,
+        number: "10",
+        title: "AI Helps You Code",
+        unit: "unit3",
+        difficulty: "advanced",
+        prepTime: 15,
+        description: "Students learn prompt engineering — how to write clear questions for AI.",
+        builds: "AI-assisted web page",
+        teacherGuide: "docs/teacher-guides/LESSON-10.md",
+        studentSkill: "skills/learn/SKILL-10-ai-coding.md",
+        example: null,
+        keywords: ["ai", "prompt", "engineering", "coding", "assistance", "questions"]
+      },
+      {
+        id: 11,
+        number: "11",
+        title: "Debug With AI",
+        unit: "unit3",
+        difficulty: "advanced",
+        prepTime: 15,
+        description: "Students learn problem-solving strategies and how to use AI to debug code.",
+        builds: "Debugging skills and AI-assisted problem solving",
+        teacherGuide: "docs/teacher-guides/LESSON-11.md",
+        studentSkill: "skills/learn/SKILL-11-debugging.md",
+        example: null,
+        keywords: ["debug", "debugging", "problem solving", "ai", "errors", "fix"]
+      },
+      {
+        id: 12,
+        number: "12",
+        title: "Final Project",
+        unit: "unit3",
+        difficulty: "advanced",
+        prepTime: 20,
+        description: "Students design, build, and present a web project of their choice.",
+        builds: "Student's choice — full project cycle",
+        teacherGuide: "docs/teacher-guides/LESSON-12.md",
+        studentSkill: "skills/learn/SKILL-12-final-project.md",
+        example: null,
+        keywords: ["project", "final", "capstone", "portfolio", "complete", "presentation"]
+      }
+    ];
+
+    // =========================================
+    // STATE: Current filters and search
+    // =========================================
+    let currentFilter = "all";
+    let searchQuery = "";
+    let selectedLessons = new Set();
+
+    // =========================================
+    // RENDER: Create lesson cards
+    // =========================================
+    function renderLessons() {
+      const grid = document.getElementById("lessons-grid");
+      const noResults = document.getElementById("no-results");
+      
+      // Filter lessons
+      let filtered = curriculumData.filter(lesson => {
+        // Unit filter
+        if (currentFilter !== "all" && currentFilter !== lesson.unit && currentFilter !== lesson.difficulty) {
+          return false;
+        }
+        
+        // Search filter
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          const searchable = `${lesson.title} ${lesson.description} ${lesson.builds} ${lesson.keywords.join(" ")}`.toLowerCase();
+          if (!searchable.includes(query)) {
+            return false;
+          }
+        }
+        
+        return true;
+      });
+
+      // Show/hide no results
+      if (filtered.length === 0) {
+        grid.style.display = "none";
+        noResults.style.display = "block";
+        return;
+      }
+
+      grid.style.display = "grid";
+      noResults.style.display = "none";
+
+      // Clear grid
+      grid.innerHTML = "";
+
+      // Render cards
+      filtered.forEach(lesson => {
+        const card = createLessonCard(lesson);
+        grid.appendChild(card);
+      });
+
+      // Update prep calculator
+      updatePrepCalculator();
+    }
+
+    // =========================================
+    // CREATE: Individual lesson card
+    // =========================================
+    function createLessonCard(lesson) {
+      const card = document.createElement("div");
+      card.className = "lesson-card";
+      card.setAttribute("role", "listitem");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("data-lesson-id", lesson.id);
+
+      // Difficulty badge color
+      const difficultyColors = {
+        beginner: "#48bb78",
+        intermediate: "#ed8936",
+        advanced: "#9f7aea"
+      };
+
+      const cardHTML = `
+        <h3>Lesson ${lesson.number}: ${lesson.title}</h3>
+        <div class="lesson-meta">
+          <span>⏱️ ${lesson.prepTime} min prep</span>
+          <span style="color: ${difficultyColors[lesson.difficulty]}">● ${lesson.difficulty}</span>
+        </div>
+        <p class="lesson-description">${lesson.description}</p>
+        <p style="font-size: 14px; color: #718096; margin: 10px 0;"><strong>Builds:</strong> ${lesson.builds}</p>
+        <div class="lesson-links">
+          <a href="${lesson.teacherGuide}" class="link-teacher" target="_blank" rel="noopener">Teacher Guide</a>
+          <a href="${lesson.studentSkill}" class="link-student" target="_blank" rel="noopener">Student Skill</a>
+        </div>
+        ${lesson.example ? `
+          <div class="example-preview">
+            <iframe src="${lesson.example}" title="Example preview for ${lesson.title}" loading="lazy"></iframe>
+            <div class="example-fallback" style="display: none;">
+              <p>Preview not available. <a href="${lesson.example}" target="_blank" rel="noopener">Open example in new tab</a></p>
+            </div>
+          </div>
+        ` : ""}
+      `;
+
+      card.innerHTML = cardHTML;
+
+      // Handle iframe load error
+      const iframe = card.querySelector("iframe");
+      if (iframe) {
+        iframe.onerror = function() {
+          iframe.style.display = "none";
+          card.querySelector(".example-fallback").style.display = "block";
+        };
+      }
+
+      // Keyboard navigation
+      card.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          card.querySelector(".link-teacher")?.click();
+        }
+      });
+
+      return card;
+    }
+
+    // =========================================
+    // UPDATE: Prep time calculator
+    // =========================================
+    function updatePrepCalculator() {
+      const visibleLessons = Array.from(document.querySelectorAll(".lesson-card"))
+        .map(card => {
+          const id = parseInt(card.getAttribute("data-lesson-id"));
+          return curriculumData.find(l => l.id === id);
+        })
+        .filter(Boolean);
+
+      const totalPrep = visibleLessons.reduce((sum, lesson) => sum + lesson.prepTime, 0);
+      const prepTotalEl = document.getElementById("prep-total");
+      prepTotalEl.textContent = `${totalPrep} minutes`;
+    }
+
+    // =========================================
+    // SEARCH: Filter by text input
+    // =========================================
+    const searchInput = document.getElementById("search-input");
+    searchInput.addEventListener("input", function(e) {
+      searchQuery = e.target.value;
+      renderLessons();
+    });
+
+    // =========================================
+    // FILTER: Filter by unit/difficulty
+    // =========================================
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", function() {
+        // Update active state
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        
+        // Update filter
+        currentFilter = btn.getAttribute("data-filter");
+        renderLessons();
+      });
+    });
+
+    // =========================================
+    // QUICK START: Today's lesson
+    // =========================================
+    const lessonSelect = document.getElementById("lesson-select");
+    const quickStartBtn = document.getElementById("quick-start-btn");
+
+    // Populate lesson select
+    curriculumData.forEach(lesson => {
+      const option = document.createElement("option");
+      option.value = lesson.id;
+      option.textContent = `Lesson ${lesson.number}: ${lesson.title}`;
+      lessonSelect.appendChild(option);
+    });
+
+    // Handle quick start
+    quickStartBtn.addEventListener("click", function() {
+      const selectedId = lessonSelect.value;
+      if (!selectedId) {
+        alert("Please select a lesson first.");
+        return;
+      }
+
+      const lesson = curriculumData.find(l => l.id === parseInt(selectedId));
+      if (lesson) {
+        // Try to open both files
+        // Note: Browsers may block multiple tabs from file:// URLs
+        // Fallback: Show links
+        try {
+          window.open(lesson.teacherGuide, "_blank");
+          setTimeout(() => {
+            window.open(lesson.studentSkill, "_blank");
+          }, 100);
+        } catch (e) {
+          // Fallback: Show alert with links
+          alert(`Open these files:\n\nTeacher Guide: ${lesson.teacherGuide}\nStudent Skill: ${lesson.studentSkill}`);
+        }
+      }
+    });
+
+    // =========================================
+    // KEYBOARD SHORTCUTS
+    // =========================================
+    document.addEventListener("keydown", function(e) {
+      // Focus search with /
+      if (e.key === "/" && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
+        e.preventDefault();
+        searchInput.focus();
+      }
+
+      // Escape to clear search
+      if (e.key === "Escape" && document.activeElement === searchInput) {
+        searchInput.value = "";
+        searchQuery = "";
+        renderLessons();
+        searchInput.blur();
+      }
+    });
+
+    // =========================================
+    // INITIALIZE: Render on page load
+    // =========================================
+    document.addEventListener("DOMContentLoaded", function() {
+      renderLessons();
+      
+      // Set "All Lessons" as active
+      document.querySelector('.filter-btn[data-filter="all"]').classList.add("active");
+    });
+  </script>
+</body>
+</html>

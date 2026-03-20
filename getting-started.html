@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started with EduStack</title>
+  <style>
+    /* ========================================= */
+    /* PAGE SETUP: Background and base styles   */
+    /* ========================================= */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+      color: #2d3748;
+      font-family: Georgia, serif;
+      line-height: 1.6;
+    }
+
+    /* ========================================= */
+    /* HEADER: Top navigation and title         */
+    /* ========================================= */
+    .header {
+      background: linear-gradient(135deg, #2b6cb0, #4299e1);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 32px;
+      font-weight: normal;
+    }
+
+    /* ========================================= */
+    /* NAVIGATION: Links to other pages          */
+    /* ========================================= */
+    .nav {
+      background-color: white;
+      padding: 15px 20px;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .nav a {
+      color: #2b6cb0;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .nav a:hover,
+    .nav a:focus {
+      background-color: #edf2f7;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    /* ========================================= */
+    /* CONTAINER: Main content area              */
+    /* ========================================= */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .section {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      color: #2b6cb0;
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #bee3f8;
+    }
+
+    .section h3 {
+      color: #2c5282;
+      margin-top: 25px;
+    }
+
+    .section ol,
+    .section ul {
+      margin: 15px 0;
+      padding-left: 30px;
+    }
+
+    .section li {
+      margin: 10px 0;
+    }
+
+    .code-block {
+      background-color: #2d3748;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+
+    .code-block code {
+      color: #e2e8f0;
+    }
+
+    .checklist {
+      background-color: #edf2f7;
+      padding: 20px;
+      border-radius: 4px;
+      border-left: 4px solid #2b6cb0;
+      margin: 20px 0;
+    }
+
+    .checklist-item {
+      margin: 10px 0;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .checklist-item::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: #2b6cb0;
+      font-size: 18px;
+    }
+
+    .highlight {
+      background-color: #edf2f7;
+      padding: 20px;
+      border-radius: 4px;
+      border-left: 4px solid #2b6cb0;
+      margin: 20px 0;
+    }
+
+    .step-number {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: #2b6cb0;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    /* ========================================= */
+    /* FOOTER: Bottom links                     */
+    /* ========================================= */
+    .footer {
+      background-color: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 60px;
+      color: #718096;
+    }
+
+    .footer a {
+      color: #2b6cb0;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .footer a:hover,
+    .footer a:focus {
+      text-decoration: underline;
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+
+    /* ========================================= */
+    /* FOCUS VISIBLE: Keyboard navigation        */
+    /* ========================================= */
+    *:focus-visible {
+      outline: 2px solid #2b6cb0;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>Getting Started with EduStack</h1>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="getting-started.html">Getting Started</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Introduction -->
+    <section class="section" aria-labelledby="intro-heading">
+      <h2 id="intro-heading">Welcome to EduStack!</h2>
+      <p>This guide will help you set up EduStack in your classroom. The entire setup takes about <strong>15 minutes</strong> and only needs to be done once.</p>
+      <div class="highlight">
+        <p><strong>You don't need to know how to code.</strong> EduStack is designed so that you learn each lesson 15 minutes before you teach it.</p>
+      </div>
+    </section>
+
+    <!-- What You Need -->
+    <section class="section" aria-labelledby="requirements-heading">
+      <h2 id="requirements-heading">What You Need</h2>
+      <ul>
+        <li>A computer with <a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a> installed (most school IT departments can do this)</li>
+        <li>A text editor (<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VS Code</a> recommended — it's free)</li>
+        <li>A web browser (Chrome, Firefox, Edge, or Safari)</li>
+        <li>15 minutes to set up before your first class</li>
+      </ul>
+    </section>
+
+    <!-- Setup Steps -->
+    <section class="section" aria-labelledby="setup-heading">
+      <h2 id="setup-heading">Setup (One Time)</h2>
+      
+      <h3><span class="step-number">1</span>Clone EduStack</h3>
+      <p>Open a terminal (or command prompt) and run:</p>
+      <div class="code-block">
+        <code>git clone https://github.com/Cartooli/edustack.git</code>
+      </div>
+      <p>This downloads EduStack to your computer. It's just a folder with files — no installation needed.</p>
+
+      <h3><span class="step-number">2</span>Enter the Directory</h3>
+      <div class="code-block">
+        <code>cd edustack</code>
+      </div>
+      <p>This moves you into the EduStack folder.</p>
+
+      <h3><span class="step-number">3</span>Run the Setup Script</h3>
+      <div class="code-block">
+        <code>./setup.sh</code>
+      </div>
+      <p>This validates your environment. It doesn't install anything — just checks that everything is ready.</p>
+
+      <div class="highlight">
+        <p><strong>That's it!</strong> No <code>npm install</code>. No API keys. No accounts. No admin privileges needed.</p>
+      </div>
+    </section>
+
+    <!-- First Class -->
+    <section class="section" aria-labelledby="first-class-heading">
+      <h2 id="first-class-heading">Your First Class (30 minutes)</h2>
+      
+      <div class="checklist">
+        <h3 style="margin-top: 0;">Before Class Checklist:</h3>
+        <div class="checklist-item">Read the teacher guide for Lesson 1 (5 min): <code>docs/teacher-guides/LESSON-01.md</code></div>
+        <div class="checklist-item">Open the example file in a browser to see what students will build: <code>examples/html-basics/index.html</code></div>
+        <div class="checklist-item">(Optional) Try the first 3 steps of Skill-01 yourself</div>
+      </div>
+
+      <h3>During Class:</h3>
+      <ol>
+        <li><strong>Open the curriculum hub:</strong> Open <code>index.html</code> in your browser</li>
+        <li><strong>Select today's lesson:</strong> Use the "Today's Lesson" quick-start to open both the teacher guide and student skill</li>
+        <li><strong>Students follow the steps:</strong> Each skill is a guided, step-by-step activity</li>
+        <li><strong>Review together:</strong> Students share what they built on their screens</li>
+      </ol>
+    </section>
+
+    <!-- Getting Updates -->
+    <section class="section" aria-labelledby="updates-heading">
+      <h2 id="updates-heading">Getting Updates</h2>
+      <p>To get the latest lessons and safety patches:</p>
+      <div class="code-block">
+        <code>cd edustack<br>git pull origin main</code>
+      </div>
+      <p>EduStack follows <a href="https://semver.org/" target="_blank" rel="noopener">semantic versioning</a>. Safety patches are released immediately. New lessons are released on a predictable schedule.</p>
+    </section>
+
+    <!-- AI Features (Optional) -->
+    <section class="section" aria-labelledby="ai-heading">
+      <h2 id="ai-heading">AI Features (Optional)</h2>
+      <p>EduStack can optionally integrate with Claude (via Claude Code or the API) to provide students with an AI coding tutor. <strong>This is entirely optional</strong> — all lessons work without AI.</p>
+      
+      <div class="checklist">
+        <h3 style="margin-top: 0;">If AI features will be used:</h3>
+        <div class="checklist-item">Claude Code or API access configured by IT department</div>
+        <div class="checklist-item">Review <code>docs/SAFETY.md</code> and be comfortable with the safety system</div>
+        <div class="checklist-item">Set <code>config/teacher-settings.json</code> to <code>"ai_enabled": true</code></div>
+      </div>
+
+      <p><strong>Remember:</strong> You are still the teacher. The AI is a tool, not a replacement. You can disable AI at any time if needed.</p>
+    </section>
+
+    <!-- Troubleshooting -->
+    <section class="section" aria-labelledby="troubleshooting-heading">
+      <h2 id="troubleshooting-heading">Troubleshooting</h2>
+      <ul>
+        <li><strong>"The page is blank"</strong> → Check if the file was saved. Check for a typo in the filename.</li>
+        <li><strong>"The colors don't show"</strong> → Check for a missing semicolon in CSS. Most common beginner error.</li>
+        <li><strong>"Nothing happens when I click"</strong> → Check the browser console (F12) for JavaScript errors.</li>
+        <li><strong>"The AI isn't responding"</strong> → Check if AI features are enabled in <code>config/teacher-settings.json</code>.</li>
+        <li><strong>"I can't git pull"</strong> → Ask IT to check network access to GitHub.</li>
+      </ul>
+    </section>
+
+    <!-- Getting Help -->
+    <section class="section" aria-labelledby="help-heading">
+      <h2 id="help-heading">Getting Help</h2>
+      <ul>
+        <li><strong>Technical issues:</strong> Open an issue on the <a href="https://github.com/Cartooli/edustack" target="_blank" rel="noopener">EduStack GitHub repository</a></li>
+        <li><strong>Pedagogical questions:</strong> Check the teacher guides or open a discussion</li>
+        <li><strong>Safety concerns:</strong> Follow the incident response process in <code>docs/SAFETY.md</code></li>
+      </ul>
+    </section>
+
+    <!-- Next Steps -->
+    <section class="section" aria-labelledby="next-steps-heading">
+      <h2 id="next-steps-heading">Next Steps</h2>
+      <p>You're ready to start teaching! Here's what to do next:</p>
+      <ol>
+        <li>Open <a href="index.html">the curriculum hub</a> to browse all lessons</li>
+        <li>Read the teacher guide for Lesson 1</li>
+        <li>Try the first few steps yourself (optional but recommended)</li>
+        <li>Plan your first class using the timing guide in the teacher guide</li>
+      </ol>
+      <div class="highlight">
+        <p><strong>You've got this!</strong> You're already doing something amazing by bringing coding into your classroom. EduStack is here to make that easier.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      <a href="index.html">Home</a> |
+      <a href="about.html">About</a> |
+      <a href="https://github.com/Cartooli/edustack" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </footer>
+</body>
+</html>

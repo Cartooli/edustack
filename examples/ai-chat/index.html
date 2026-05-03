@@ -441,9 +441,9 @@
           bubbleDiv.textContent = text;
         } else {
           // Bot messages use pre-written HTML (safe — we wrote it, not the user)
-          // NOTE: We NEVER put user input into innerHTML.
+          // NOTE: We NEVER put user input into this method.
           // Only our pre-written responses go here.
-          bubbleDiv.innerHTML = text;
+          bubbleDiv.insertAdjacentHTML("afterbegin", text);
         }
 
         messageDiv.appendChild(bubbleDiv);
